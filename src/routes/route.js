@@ -1,6 +1,7 @@
 import UserController from "../controllers/user.controller.js";
 import validate from '../middleware/validateSchema.js';
 import createUSchema from '../schemas/user.schemas.js';
+import ProductController from '../controllers/product.controller.js'
 
 function routes(app){
 
@@ -14,6 +15,9 @@ function routes(app){
     app.post("/api/users", validate(createUSchema), UserController.createUser);
     app.put("/api/user/:identification", validate(createUSchema), UserController.updateUser);
     app.delete("/api/user/:identification", UserController.deleteUser);
+
+    //Product
+    app.post("/api/products", ProductController.createProduct);
 }
 
 export default routes;
