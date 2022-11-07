@@ -1,6 +1,6 @@
 # nodejs-backend
 
-## Steps to initialize de project
+## Steps to initialize the project
 - clone the repo
 - npm install to check all the dependencies
 - npm run dev to initialize de server
