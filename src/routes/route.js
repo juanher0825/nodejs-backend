@@ -9,6 +9,8 @@ function routes(app){
     app.post("/api/login", UserController.login);
 
     //User
+    app.get("/api/users", UserController.getUsers);
+    app.get("/api/users/:identification", UserController.getUserByIdentification);
     app.post("/api/users", validate(createUSchema), UserController.createUser);
 }
 

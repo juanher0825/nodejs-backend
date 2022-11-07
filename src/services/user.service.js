@@ -10,9 +10,27 @@ class UserService{
         }
     }
 
+    async getUsers() {
+        try {
+            const users = await User.find({})
+            return users
+        }catch (error) {
+            throw new Error(error)
+        }
+    }
+
     async findUserByEmail(email) {
         try {
             const user = await User.findOne({email: email})
+            return user
+        }catch (error) {
+            throw new Error(error)
+        }
+    }
+
+    async findUserByIdentification(identification) {
+        try {
+            const user = await User.findOne({identification: identification})
             return user
         }catch (error) {
             throw new Error(error)

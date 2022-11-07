@@ -8,7 +8,7 @@ async function connect() {
 
     try {
         await mongoose.connect(dburi)
-        console.log('Connected')
+        console.log('The mongoDB is Connected...')
     } catch (error) {
         console.log('Could not connect to DB: ' + process.env.BDURL)
         console.log(error)
