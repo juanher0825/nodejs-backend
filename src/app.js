@@ -2,7 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import debug from 'debug';
-import routes from './routes/index.js';
+import routes from './routes/route.js';
 import connect from './utils/connection.js'
 
 dotenv.config()
@@ -23,6 +23,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(port, () => {
-    debuglog('Application running')
     console.log('El servidor esta escuchando en el puerto' + ' ' + port);
 });

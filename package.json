@@ -27,7 +27,8 @@
     "express": "^4.18.2",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.7.1",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "zod": "^3.19.1"
   },
   "engines": {
     "node": "16.x"
