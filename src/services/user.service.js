@@ -9,6 +9,15 @@ class UserService{
             throw new Error(error)
         }
     }
+
+    async findUserByEmail(email) {
+        try {
+            const user = await User.findOne({email: email})
+            return user
+        }catch (error) {
+            throw new Error(error)
+        }
+    }
 }
 
 export default new UserService()
