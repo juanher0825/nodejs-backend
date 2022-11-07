@@ -19,6 +19,24 @@ class UserService{
         }
     }
 
+    async updateUser(identification, input) {
+        try {
+            const user = await User.findOneAndUpdate({identification:identification}, input, {new: true})
+            return user?.toJSON()
+        } catch (error) {
+            throw new Error(error)
+        }
+    }
+
+    async deleteUser(identification) {
+        try {
+            const user = await User.deleteOne({identification: identification})
+            return user
+        }catch (error) {
+            throw new Error(error)
+        }
+    }
+
     async findUserByEmail(email) {
         try {
             const user = await User.findOne({email: email})

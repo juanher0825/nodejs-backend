@@ -6,7 +6,7 @@ class UserController{
         try {
           //debuglog(req);
           const user = await UserService.createUser(req.body);
-          console.log("The user is create")
+          console.log("----------The user is create----------")
           return res.send(user);
         } catch (error) {
           //debuglog(error);
@@ -22,8 +22,45 @@ class UserController{
           if (userExist == null) {
             return res.status(409).send("No current users");
           }
-          console.log("The users are list")
+          console.log("----------The users are list----------")
           return res.send(userExist);
+        } catch (error) {
+          //debuglog(error);
+    
+          return res.status(409).send(error.message);
+        }
+      }
+
+      async updateUser(req, res) {
+        try {
+          const userExist = await UserService.findUserByIdentification(req.params.identification);
+    
+          if (userExist == null) {
+            return res.status(409).send("user does not exists");
+          }
+    
+          //req.body.password = await bcrypt.hash(req.body.password, 10)
+    
+          const user = await UserService.updateUser(req.params.identification, req.body);
+          console.log("----------The user " + req.params.identification + " are update----------");
+          return res.send(user);
+        } catch (error) {
+          //debuglog(error);
+          return res.status(409).send(error.message);
+        }
+      }
+
+      async deleteUser(req, res) {
+        try {
+          const userExist = await UserService.findUserByIdentification(req.params.identification);
+    
+          if (userExist == null) {
+            return res.status(409).send("user does not exists");
+          }
+    
+          let user = await UserService.deleteUser(req.params.identification);
+          console.log("----------The user " + req.params.identification + " are delete----------");
+          return res.send(user);
         } catch (error) {
           //debuglog(error);
     

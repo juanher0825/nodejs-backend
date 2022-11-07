@@ -10,8 +10,10 @@ function routes(app){
 
     //User
     app.get("/api/users", UserController.getUsers);
-    app.get("/api/users/:identification", UserController.getUserByIdentification);
+    app.get("/api/user/:identification", UserController.getUserByIdentification);
     app.post("/api/users", validate(createUSchema), UserController.createUser);
+    app.put("/api/user/:identification", validate(createUSchema), UserController.updateUser);
+    app.delete("/api/user/:identification", UserController.deleteUser);
 }
 
 export default routes;
