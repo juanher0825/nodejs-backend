@@ -12,17 +12,17 @@ function routes(app){
 
     //User
     app.get("/api/users", UserController.getUsers);
-    app.get("/api/user/:identification", validateToken, UserController.getUserByIdentification);
+    app.get("/api/user/:identification", UserController.getUserByIdentification);
     app.post("/api/users", validate(createUSchema), UserController.createUser);
-    app.put("/api/user/:identification", validate(createUSchema), UserController.updateUser);
-    app.delete("/api/user/:identification", UserController.deleteUser);
+    app.put("/api/user/:identification", validateToken, validate(createUSchema), UserController.updateUser);
+    app.delete("/api/user/:identification", validateToken, UserController.deleteUser);
 
     //Product
     app.get("/api/products/", ProductController.getProducts);
     app.get("/api/product/idOwner/:identification", ProductController.getProductByOwner);
     app.get("/api/product/:name", ProductController.getProductByName);
-    app.post("/api/products", ProductController.createProduct);
-    app.put("/api/product/:name", ProductController.updateProduct);
+    app.post("/api/products", validateToken, ProductController.createProduct);
+    app.put("/api/product/:name",validateToken, ProductController.updateProduct);
     app.delete("/api/product/:name", ProductController.deleteProduct);
     
 }

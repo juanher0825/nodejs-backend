@@ -1,10 +1,13 @@
 import ProductService from "../services/product.service.js";
 import UserService from "../services/user.service.js";
+import jwt_decode from 'jwt-decode';
 
 class ProductController{
     async createProduct(req, res) {
           try {
-            const userid = req.body.owner.identification;
+            const infoToken = jwt_decode(req.headers.authorization)
+            console.log("Email del usuario con el que se va a registrar el producto: " + infoToken.email);
+            const userid = infoToken.identification;
             //console.log(req.body.owner.identification);
             const userExist = await UserService.findUserByIdentification(userid);
             //console.log(userExist);
@@ -78,17 +81,23 @@ class ProductController{
 
       async updateProduct(req, res) {
         try {
+          const infoToken = jwt_decode(req.headers.authorization)
+          console.log("Email del token logueado: " + infoToken.email);;
           const productExist = await ProductService.findProductByName(req.params.name);
     
           if (productExist == null) {
             return res.status(409).send("product does not exists");
+          }else if(infoToken.email == productExist.owner.email){
+            const product = await ProductService.updateProduct(req.params.name, req.body);
+            console.log("----------The product " + req.params.name + " are update----------");
+            return res.send(product);
+          }else{
+            return res.status(409).send("You aren´t login with the account " + productExist.owner.email);
           }
     
           //req.body.password = await bcrypt.hash(req.body.password, 10)
     
-          const product = await ProductService.updateProduct(req.params.name, req.body);
-          console.log("----------The product " + req.params.name + " are update----------");
-          return res.send(product);
+          
         } catch (error) {
           //debuglog(error);
           return res.status(409).send(error.message);
