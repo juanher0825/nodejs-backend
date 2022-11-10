@@ -2,6 +2,7 @@ import UserController from "../controllers/user.controller.js";
 import validate from '../middleware/validateSchema.js';
 import createUSchema from '../schemas/user.schemas.js';
 import ProductController from '../controllers/product.controller.js'
+import validateToken from "../middleware/auth.js";
 
 function routes(app){
 
@@ -11,7 +12,7 @@ function routes(app){
 
     //User
     app.get("/api/users", UserController.getUsers);
-    app.get("/api/user/:identification", UserController.getUserByIdentification);
+    app.get("/api/user/:identification", validateToken, UserController.getUserByIdentification);
     app.post("/api/users", validate(createUSchema), UserController.createUser);
     app.put("/api/user/:identification", validate(createUSchema), UserController.updateUser);
     app.delete("/api/user/:identification", UserController.deleteUser);
